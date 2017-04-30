@@ -1,4 +1,4 @@
-package scratch.jsp.webapp;
+package scratch.webcomponents;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
