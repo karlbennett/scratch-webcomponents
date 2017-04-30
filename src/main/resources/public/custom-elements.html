@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/webjars/webcomponentsjs/0.7.24/webcomponents-lite.min.js"></script>
+
+    <title>Custom Elements</title>
+
+    <script>
+      var tag1 = Object.create(HTMLElement.prototype);
+      tag1.createdCallback = function () {
+        this.innerHTML = '<p>This is tag 1.</p>';
+      };
+
+      var tag2 = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+          value: function () {
+            var content = this.innerHTML;
+            this.innerHTML = '<p>This is tag 2. With text from the tags content (' + content + ').</p>';
+          }
+        }
+      });
+      var tag3 = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+          value: function () {
+            this.innerHTML = '<p>This is tag 3. With text from an attribute (' + this.getAttribute('text') + ').</p>';
+          }
+        }
+      });
+      var tag4 = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+          value: function () {
+            this.innerHTML = '<p>This is tag 4. It has been added with JavaScript.</p>';
+          }
+        }
+      });
+
+      document.registerElement('tag-1', {prototype: tag1});
+      document.registerElement('tag-2', {prototype: tag2});
+      document.registerElement('tag-3', {prototype: tag3});
+      var Tag4 = document.registerElement('tag-4', {prototype: tag4});
+
+      window.onload = function () {
+        document.body.appendChild(new Tag4());
+      }
+    </script>
+</head>
+<body>
+<h1>Custom Elements</h1>
+
+<tag-1></tag-1>
+<tag-2>this is the content text</tag-2>
+<tag-3 text='this is the attribute text'></tag-3>
+</body>
+</html>

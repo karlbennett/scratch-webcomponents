@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/webjars/webcomponentsjs/0.7.24/webcomponents-lite.min.js"></script>
+    <link id='import-link' rel="import" href="/html-imports/import.html">
+
+    <title>HTML Imports</title>
+    <script>
+      window.onload = function() {
+        var _import = document.getElementById('import-link').import.getElementById('import');
+        document.body.appendChild(_import);
+      }
+    </script>
+</head>
+<body>
+<h1>HTML Imports</h1>
+
+</body>
+</html>
