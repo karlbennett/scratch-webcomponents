@@ -5,9 +5,29 @@
     <script src="/webjars/webcomponentsjs/0.7.24/webcomponents-lite.min.js"></script>
 
     <title>HTML Template</title>
+
+    <script>
+      function appendTemplate() {
+        var content = document.getElementById('the-template').content;
+        var clone = document.importNode(content, true);
+        document.getElementById('content').appendChild(clone);
+      }
+    </script>
+
+    <template id="the-template">
+        <script>
+          var element = document.getElementById('replace');
+          var span = document.getElementById('times');
+          var times = span === null ? 1 : parseInt(span.innerHTML) + 1;
+          element.innerHTML = 'Well... now this text has been replaced <span id="times">' + times + '</span> times.';
+        </script>
+        <p>This template has been added.</p>
+    </template>
 </head>
-<body>
+<body id="content">
 <h1>HTML Template</h1>
 
+<button onclick="appendTemplate()">Add the template.</button>
+<p id="replace">This text will be replaced.</p>
 </body>
 </html>
