@@ -5,9 +5,37 @@
     <script src="/webjars/webcomponentsjs/0.7.24/webcomponents-lite.min.js"></script>
 
     <title>Shadow DOM</title>
+
+    <script>
+      function shadowContent(prefix) {
+        return function () {
+          var content = this.innerHTML;
+          this.innerHTML = null;
+          var shadow = this.createShadowRoot();
+          shadow.innerHTML = prefix === undefined ? content : prefix + content;
+        };
+      }
+
+      var shadowTag = Object.create(HTMLElement.prototype);
+      shadowTag.createdCallback = shadowContent();
+
+      var greenShadowTag = Object.create(HTMLElement.prototype);
+      greenShadowTag.createdCallback = shadowContent('<style>p { color: green; }</style>');
+
+      document.registerElement('shadow-tag', {prototype: shadowTag});
+      document.registerElement('green-shadow-tag', {prototype: greenShadowTag});
+    </script>
+    <style>
+        p {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Shadow DOM</h1>
 
+<shadow-tag><p>I gots no colour :(</p></shadow-tag>
+<green-shadow-tag><p>I gots ma green on!</p></green-shadow-tag>
+<p>I'm totes not green.</p>
 </body>
 </html>
