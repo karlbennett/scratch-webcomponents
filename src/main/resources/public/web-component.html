@@ -1,0 +1,34 @@
+<template id="example-list">
+    <style>
+        a:link, a:visited, a:hover, a:active {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+    <ul>
+        <li>
+            <a href="/custom-elements.html">Custom Elements</a>
+        </li>
+        <li>
+            <a href="/html-imports.html">HTML Imports</a>
+        </li>
+        <li>
+            <a href="/html-template.html">HTML Template</a>
+        </li>
+        <li>
+            <a href="/shadow-dom.html">Shadow DOM</a>
+        </li>
+    </ul>
+</template>
+
+<script>
+  var componentDocument = document.currentScript.ownerDocument;
+  var exampleList = Object.create(HTMLElement.prototype);
+  exampleList.createdCallback = function () {
+    var template = componentDocument.getElementById('example-list');
+    var clone = componentDocument.importNode(template.content, true);
+    this.createShadowRoot().appendChild(clone);
+  };
+
+  document.registerElement('example-list', {prototype: exampleList});
+</script>
